@@ -6,7 +6,6 @@ import BookItem from '../components/BookItem';
 
 const CategoryBooksScreen = props => {
     const catId = props.navigation.getParam('categoryId');
-    const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
     const displayedBooks = BOOKS.filter(
         book => book.categoryIds.indexOf(catId) >= 0
     );
@@ -14,20 +13,26 @@ const CategoryBooksScreen = props => {
     const renderBookItem = itemData => {
         return (
             <BookItem 
-                onSelect={() => {}}
                 title={itemData.item.title} 
                 author={itemData.item.author}
-                //categoryIds
                 releaseDate={itemData.item.releaseDate}
                 language={itemData.item.language}
                 publisher={itemData.item.publisher}
                 imageUrl={itemData.item.imageUrl}
+                onSelect={() => {
+                    props.navigation.navigate({
+                        routeName: 'BookDetail',
+                        params: {
+                            bookId: itemData.item.id
+                        }
+                    });
+                }}
             />
         );
     };
 
     return (
-        <View>
+        <View style={styles.screen}>
             <FlatList
                 keyExtractor={(item, index) => item.id} // newer versions of RN don't need this
                 data={displayedBooks} 
