@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { HeaderButtons, Item, HeaderButton } from 'react-navigation-header-buttons';
 
 import { BOOKS } from '../data/dummy-data';
+import CustomHeaderButton from '../components/CustomHeaderButton';
 
 const BookDetailScreen = props => {
     const bookId = props.navigation.getParam('bookId');
@@ -25,7 +27,18 @@ BookDetailScreen.navigationOptions = navigationData => {
     const selectedBook = BOOKS.find(book => book.id === bookId);
 
     return {
-        headerTitle: selectedBook.title
+        headerTitle: selectedBook.title,
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                <Item 
+                    title="Favorite"
+                    iconName="star"
+                    onPress={() => {
+                        console.log('Mark as favorite');
+                    }}
+                />
+            </HeaderButtons>
+        )
     };
 };
 
