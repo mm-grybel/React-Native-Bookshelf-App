@@ -1,10 +1,12 @@
 import { Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator  } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryBooksScreen from '../screens/CategoryBooksScreen';
 import BookDetailScreen from '../screens/BookDetailScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import Colors from '../constants/Colors';
 
 const BooksNavigator = createStackNavigator(
@@ -24,4 +26,9 @@ const BooksNavigator = createStackNavigator(
     }
 );
 
-export default createAppContainer(BooksNavigator);
+const BooksFavTabNavigator = createBottomTabNavigator({
+    Books: BooksNavigator,
+    Favorites: FavoritesScreen
+});
+
+export default createAppContainer(BooksFavTabNavigator);
