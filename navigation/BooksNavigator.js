@@ -12,6 +12,13 @@ import BookDetailScreen from '../screens/BookDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import Colors from '../constants/Colors';
 
+const defaultStackNavOptions = {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : 'white'
+    },
+    headerTintColor: 'black'
+};
+
 const BooksNavigator = createStackNavigator(
     {
         Categories: CategoriesScreen,
@@ -19,13 +26,19 @@ const BooksNavigator = createStackNavigator(
         BookDetail: BookDetailScreen
     },
     {
-        initialRouteName: 'Categories',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : 'white'
-            },
-            headerTintColor: 'black'
-        }
+        //initialRouteName: 'Categories',
+        defaultNavigationOptions: defaultStackNavOptions
+    }
+);
+
+const FavoritesNavigator = createStackNavigator(
+    {
+        Favorites: FavoritesScreen,
+        BookDetail: BookDetailScreen
+    },
+    {
+        //initialRouteName: 'Categories',
+        defaultNavigationOptions: defaultStackNavOptions
     }
 );
 
@@ -43,7 +56,7 @@ const tabScreenConfig = {
         }
     },
     Favorites: {
-        screen: FavoritesScreen, 
+        screen: FavoritesNavigator, 
         navigationOptions: {
             tabBarLabel: 'Favorites',
             tabBarColor: Colors.accentColor, // this has effect when shifting: true below

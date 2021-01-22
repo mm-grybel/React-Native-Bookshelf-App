@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 import { CATEGORIES, BOOKS } from '../data/dummy-data';
-import BookItem from '../components/BookItem';
+import BookList from '../components/BookList';
 
 const CategoryBooksScreen = props => {
     const catId = props.navigation.getParam('categoryId');
@@ -10,36 +9,11 @@ const CategoryBooksScreen = props => {
         book => book.categoryIds.indexOf(catId) >= 0
     );
 
-    const renderBookItem = itemData => {
-        return (
-            <BookItem 
-                title={itemData.item.title} 
-                author={itemData.item.author}
-                releaseDate={itemData.item.releaseDate}
-                language={itemData.item.language}
-                publisher={itemData.item.publisher}
-                imageUrl={itemData.item.imageUrl}
-                onSelect={() => {
-                    props.navigation.navigate({
-                        routeName: 'BookDetail',
-                        params: {
-                            bookId: itemData.item.id
-                        }
-                    });
-                }}
-            />
-        );
-    };
-
     return (
-        <View style={styles.screen}>
-            <FlatList
-                keyExtractor={(item, index) => item.id} // newer versions of RN don't need this
-                data={displayedBooks} 
-                renderItem={renderBookItem}
-                style={{width: '100%'}}
-            />
-        </View>
+        <BookList 
+            listData={displayedBooks}
+            navigation={props.navigation}
+        />
     );
 };
 
@@ -51,13 +25,5 @@ CategoryBooksScreen.navigationOptions = (navigationData) => {
         headerTitle: selectedCategory.title      
     };
 };
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
 
 export default CategoryBooksScreen;

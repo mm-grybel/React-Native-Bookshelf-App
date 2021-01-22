@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+
+import { BOOKS } from '../data/dummy-data';
+import BookList from '../components/BookList';
 
 const FavoritesScreen = props => {
+    // add temporary dummy data
+    const favoriteBooks = BOOKS.filter(book => book.id === 'b1' || book.id === 'b2');
     return (
-        <View style={styles.screen}>
-            <Text>The Favorites Screen</Text>
-        </View>
+        <BookList 
+            listData={favoriteBooks}
+            navigation={props.navigation}
+        />
     );
 };
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
+FavoritesScreen.navigationOptions = {
+    headerTitle: 'Favorites'
+};
 
 export default FavoritesScreen;
