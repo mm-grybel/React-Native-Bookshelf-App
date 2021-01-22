@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { enableScreens } from 'react-native-screens';
+
+import BooksNavigator from './navigation/BooksNavigator';
+
+// we call this first, before we run any JSX code
+enableScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    'open-sans': require('./assets/fonts/Open-Sans-Regular.ttf'),
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   });
 };
@@ -24,12 +30,8 @@ export default function App() {
   }
   
   return (
-    <View style={styles.container}>
-
-    </View>
+    <BooksNavigator />
   );
 }
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
