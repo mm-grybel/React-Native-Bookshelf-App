@@ -4,12 +4,14 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator  } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryBooksScreen from '../screens/CategoryBooksScreen';
 import BookDetailScreen from '../screens/BookDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import FiltersScreen from '../screens/FiltersScreen';
 import Colors from '../constants/Colors';
 
 const defaultStackNavOptions = {
@@ -81,4 +83,45 @@ const BooksFavTabNavigator =
             }
         });
 
-export default createAppContainer(BooksFavTabNavigator);
+const FiltersNavigator = createStackNavigator(
+    {
+        Filters: FiltersScreen
+    },
+    {
+        // initialRouteName: 'Categories',
+        // ALTERNATIVE to the solution below in createDrawerNavigator
+        //navigationOptions: {
+        //    drawerLabel: 'Filters'
+        //},
+        defaultNavigationOptions: defaultStackNavOptions
+    }
+);
+
+const MainNavigator = createDrawerNavigator(
+    {
+        BookFavorites: 
+        {
+            screen: BooksFavTabNavigator, 
+            navigationOptions: {
+                drawerLabel: 'Meals'
+            }
+        },
+        Filters: 
+        {
+            screen: FiltersNavigator,
+            navigationOptions: {
+                drawerLabel: 'Filters'
+            }
+        }
+    },
+    {
+        contentOptions: {
+            activeTintColor: Colors.accentColor,
+            labelStyle: {
+                fontFamily: 'open-sans-bold'
+            }
+        }
+    }
+);
+
+export default createAppContainer(MainNavigator);

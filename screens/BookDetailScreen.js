@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { HeaderButtons, Item, HeaderButton } from 'react-navigation-header-buttons';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import { BOOKS } from '../data/dummy-data';
 import CustomHeaderButton from '../components/CustomHeaderButton';
