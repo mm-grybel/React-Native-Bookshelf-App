@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Text, Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator  } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -17,6 +17,12 @@ import Colors from '../constants/Colors';
 const defaultStackNavOptions = {
     headerStyle: {
         backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : 'white'
+    },
+    headerTitleStyle: {
+        fontFamily: 'open-sans-bold'
+    },
+    headerBackTitleStyle: {
+        fontFamily: 'open-sans'
     },
     headerTintColor: 'black'
 };
@@ -48,7 +54,7 @@ const tabScreenConfig = {
     Books: {
         screen: BooksNavigator, 
         navigationOptions: {
-            tabBarLabel: 'Books',
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Books</Text> : 'Books',
             tabBarColor: Colors.sapphireColor, // this has effect when shifting: true below
             tabBarIcon: (tabInfo) => {
                 return (
@@ -60,7 +66,7 @@ const tabScreenConfig = {
     Favorites: {
         screen: FavoritesNavigator, 
         navigationOptions: {
-            tabBarLabel: 'Favorites',
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Favorites</Text> : 'Favorites',
             tabBarColor: Colors.accentColor, // this has effect when shifting: true below
             tabBarIcon: (tabInfo) => {
                 return (
@@ -73,12 +79,15 @@ const tabScreenConfig = {
 
 const BooksFavTabNavigator = 
     Platform.OS === 'android' 
-        ? createMaterialBottomTabNavigator(tabScreenConfig, {
+        ? createMaterialBottomTabNavigator(tabScreenConfig, {  // Android
             activeColor: 'white',
             shifting: true
         }) 
-        : createBottomTabNavigator(tabScreenConfig, {
+        : createBottomTabNavigator(tabScreenConfig, {   // iOS
             tabBarOptions: {
+                labelStyle: {
+                    fontFamily: 'open-sans'
+                },
                 activeTintColor: Colors.sapphireColor
             }
         });
@@ -88,11 +97,6 @@ const FiltersNavigator = createStackNavigator(
         Filters: FiltersScreen
     },
     {
-        // initialRouteName: 'Categories',
-        // ALTERNATIVE to the solution below in createDrawerNavigator
-        //navigationOptions: {
-        //    drawerLabel: 'Filters'
-        //},
         defaultNavigationOptions: defaultStackNavOptions
     }
 );
