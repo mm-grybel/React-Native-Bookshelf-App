@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { enableScreens } from 'react-native-screens';
@@ -44,5 +43,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({});

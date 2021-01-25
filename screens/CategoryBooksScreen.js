@@ -8,9 +8,7 @@ import DefaultStyles from '../constants/default-styles';
 
 const CategoryBooksScreen = props => {
     const catId = props.navigation.getParam('categoryId');
-
     const availableBooks = useSelector(state => state.books.filteredBooks);
-
     const displayedBooks = availableBooks.filter(
         book => book.categoryIds.indexOf(catId) >= 0
     );

@@ -107,7 +107,7 @@ const MainNavigator = createDrawerNavigator(
         {
             screen: BooksFavTabNavigator, 
             navigationOptions: {
-                drawerLabel: 'Meals'
+                drawerLabel: 'Books'
             }
         },
         Filters: 

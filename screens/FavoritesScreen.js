@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 import BookList from '../components/BookList';
 import CustomHeaderButton from '../components/CustomHeaderButton';
-import DefaultStyles from '../constants/default-styles';
 
 const FavoritesScreen = props => {
     const favoriteBooks = useSelector(state => state.books.favoriteBooks);
@@ -17,7 +16,6 @@ const FavoritesScreen = props => {
             </View>
         );
     }
-
 
     return (
         <BookList 

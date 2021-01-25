@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, Switch, Platform, StyleSheet } from 'react-native';
+import { 
+    View, 
+    Text, 
+    Switch, 
+    Platform, 
+    StyleSheet 
+} from 'react-native';
 
 import Colors from '../constants/Colors';
 
