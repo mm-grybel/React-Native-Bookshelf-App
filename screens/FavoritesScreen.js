@@ -1,12 +1,23 @@
 import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
 
 import BookList from '../components/BookList';
 import CustomHeaderButton from '../components/CustomHeaderButton';
+import DefaultStyles from '../constants/default-styles';
 
 const FavoritesScreen = props => {
     const favoriteBooks = useSelector(state => state.books.favoriteBooks);
+
+    if (favoriteBooks.length === 0 || !favoriteBooks) {
+        return (
+            <View style={styles.content}>
+                <Text style={DefaultStyles.bodyText}>No favorite books found. Start adding some!</Text>
+            </View>
+        );
+    }
+
 
     return (
         <BookList 
@@ -32,5 +43,13 @@ FavoritesScreen.navigationOptions = (navigationData) => {
         )
     };
 };
+
+const styles = StyleSheet.create({
+    content: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+});
 
 export default FavoritesScreen;
