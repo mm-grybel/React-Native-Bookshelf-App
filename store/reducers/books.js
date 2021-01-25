@@ -1,5 +1,5 @@
 import { BOOKS } from '../../data/dummy-data';
-import { TOGGLE_FAVORITE } from '../actions/books';
+import { TOGGLE_FAVORITE, SET_FILTERS } from '../actions/books';
 
 const initialState = {
     books: BOOKS,
@@ -21,6 +21,17 @@ const booksReducer = (state = initialState, action) => {
                 const book = state.books.find(book => book.id === action.bookId);
                 return {...state, favoriteBooks: state.favoriteBooks.concat(book)};
             }
+        case SET_FILTERS:
+            const appliedFilters = actions.filters;
+            const updatedFilteredBooks = state.books.filter(book => {
+                if (appliedFilters.biography && !book.isBiography) {
+                    return false;
+                }
+                if (appliedFilters.thriller && !book.isThriller) {
+                    return false;
+                }
+            });
+            return {...state, filteredBooks: updatedFilteredBooks};
         default:
             return state;
     }

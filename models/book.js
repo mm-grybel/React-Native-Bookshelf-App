@@ -17,6 +17,9 @@ class Book {
         this.language = language;
         this.publisher = publisher;
         this.imageUrl = imageUrl;
+        // Info for filtering below
+        this.isBiography = isBiography;
+        this.isThriller = isThriller;
     }
 }
 
