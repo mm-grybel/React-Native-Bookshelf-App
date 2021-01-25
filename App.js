@@ -3,11 +3,20 @@ import { View, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { enableScreens } from 'react-native-screens';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 
 import BooksNavigator from './navigation/BooksNavigator';
+import booksReducer from './store/reducers/books';
 
 // we call this first, before we run any JSX code
 enableScreens();
+
+const rootReducer = combineReducers({
+  books: booksReducer
+});
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -30,7 +39,9 @@ export default function App() {
   }
   
   return (
-    <BooksNavigator />
+    <Provider store={store}>
+      <BooksNavigator />
+    </Provider>
   );
 }
 
