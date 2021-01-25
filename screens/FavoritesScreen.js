@@ -6,7 +6,7 @@ import BookList from '../components/BookList';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 
 const FavoritesScreen = props => {
-    const availableBooks = useSelector(state => state.books.favoriteBooks);
+    const favoriteBooks = useSelector(state => state.books.favoriteBooks);
 
     return (
         <BookList 

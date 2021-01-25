@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { 
     View, 
     Text, 
@@ -8,16 +8,29 @@ import {
     StyleSheet 
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import ListItem from '../components/ListItem';
 import DefaultStyles from '../constants/default-styles';
+import { toggleFavorite } from '../store/actions/books';
 
 const BookDetailScreen = props => {
     const availableBooks = useSelector(state => state.books.books)
     const bookId = props.navigation.getParam('bookId');
     const selectedBook = availableBooks.find(book => book.id === bookId);
+
+    const dispatch = useDispatch();
+
+    const toggleFavoriteHandler = useCallback(() => {
+        dispatch(toggleFavorite(bookId));
+        // ALTERNATIVELY: 
+        // dispatch(toggleFavorite(selectedBook.id));
+    }, [dispatch, bookId]);
+
+    useEffect(() => {
+        props.navigation.setParams({toggleFav: toggleFavoriteHandler});
+    }, [toggleFavoriteHandler]);
 
     return (
         <ScrollView>
@@ -47,8 +60,8 @@ const BookDetailScreen = props => {
 };
 
 BookDetailScreen.navigationOptions = navigationData => {
-    const bookId = navigationData.navigation.getParam('bookId');
     const bookTitle = navigationData.navigation.getParam('bookTitle');
+    const toggleFavorite = navigationData.navigation.getParam('toggleFav');
 
     return {
         headerTitle: bookTitle,
@@ -57,9 +70,7 @@ BookDetailScreen.navigationOptions = navigationData => {
                 <Item 
                     title="Favorite"
                     iconName="star"
-                    onPress={() => {
-                        console.log('Mark as favorite');
-                    }}
+                    onPress={toggleFavorite}
                 />
             </HeaderButtons>
         )
