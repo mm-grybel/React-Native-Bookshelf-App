@@ -1,11 +1,15 @@
 import React from 'react';
-
-import { CATEGORIES, BOOKS } from '../data/dummy-data';
+import { useSelector } from 'react-redux';
+ 
+import { CATEGORIES } from '../data/dummy-data';
 import BookList from '../components/BookList';
 
 const CategoryBooksScreen = props => {
     const catId = props.navigation.getParam('categoryId');
-    const displayedBooks = BOOKS.filter(
+
+    const availableBooks = useSelector(state => state.books.filteredBooks);
+
+    const displayedBooks = availableBooks.filter(
         book => book.categoryIds.indexOf(catId) >= 0
     );
 

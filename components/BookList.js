@@ -17,7 +17,8 @@ const BookList = props => {
                     props.navigation.navigate({
                         routeName: 'BookDetail',
                         params: {
-                            bookId: itemData.item.id
+                            bookId: itemData.item.id,
+                            bookTitle: itemData.item.title
                         }
                     });
                 }}

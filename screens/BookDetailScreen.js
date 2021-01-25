@@ -8,15 +8,16 @@ import {
     StyleSheet 
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 
-import { BOOKS } from '../data/dummy-data';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import ListItem from '../components/ListItem';
 import DefaultStyles from '../constants/default-styles';
 
 const BookDetailScreen = props => {
+    const availableBooks = useSelector(state => state.books.books)
     const bookId = props.navigation.getParam('bookId');
-    const selectedBook = BOOKS.find(book => book.id === bookId);
+    const selectedBook = availableBooks.find(book => book.id === bookId);
 
     return (
         <ScrollView>
@@ -47,10 +48,10 @@ const BookDetailScreen = props => {
 
 BookDetailScreen.navigationOptions = navigationData => {
     const bookId = navigationData.navigation.getParam('bookId');
-    const selectedBook = BOOKS.find(book => book.id === bookId);
+    const bookTitle = navigationData.navigation.getParam('bookTitle');
 
     return {
-        headerTitle: selectedBook.title,
+        headerTitle: bookTitle,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item 

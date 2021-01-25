@@ -1,13 +1,13 @@
 import React from 'react';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 
-import { BOOKS } from '../data/dummy-data';
 import BookList from '../components/BookList';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 
 const FavoritesScreen = props => {
-    // add temporary dummy data
-    const favoriteBooks = BOOKS.filter(book => book.id === 'b1' || book.id === 'b2');
+    const availableBooks = useSelector(state => state.books.favoriteBooks);
+
     return (
         <BookList 
             listData={favoriteBooks}
