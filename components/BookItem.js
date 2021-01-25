@@ -7,6 +7,8 @@ import {
     StyleSheet 
 } from 'react-native';
 
+import DefaultStyles from '../constants/default-styles';
+
 const BookItem = props => {
     return (
         <View style={styles.bookItem}>
@@ -20,9 +22,9 @@ const BookItem = props => {
                         </ImageBackground>
                     </View>
                     <View style={{...styles.bookRow, ...styles.bookDetails}}>
-                        <Text>{props.releaseDate}</Text>
-                        <Text>{props.publisher}</Text>
-                        <Text>{props.language.toUpperCase()}</Text>
+                        <Text style={DefaultStyles.bodyText}>{props.releaseDate}</Text>
+                        <Text style={DefaultStyles.bodyText}>{props.publisher}</Text>
+                        <Text style={DefaultStyles.bodyText}>{props.language.toUpperCase()}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
