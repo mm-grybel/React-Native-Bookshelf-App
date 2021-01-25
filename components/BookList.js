@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import BookItem from '../components/BookItem';
 
 const BookList = props => {
+    const favoriteBooks = useSelector(state => state.books.favoriteBooks);
     const renderBookItem = itemData => {
+        const isFavorite = favoriteBooks.find(book => book.id === itemData.item.id);
+        // ALTERNATIVELY:
+        // const isFavorite = favoriteBooks.some(book => book.id === itemData.item.id);
         return (
             <BookItem 
                 title={itemData.item.title} 
@@ -18,7 +23,8 @@ const BookList = props => {
                         routeName: 'BookDetail',
                         params: {
                             bookId: itemData.item.id,
-                            bookTitle: itemData.item.title
+                            bookTitle: itemData.item.title,
+                            isFav: isFavorite
                         }
                     });
                 }}

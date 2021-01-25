@@ -16,8 +16,11 @@ import DefaultStyles from '../constants/default-styles';
 import { toggleFavorite } from '../store/actions/books';
 
 const BookDetailScreen = props => {
-    const availableBooks = useSelector(state => state.books.books)
+    const availableBooks = useSelector(state => state.books.books);
     const bookId = props.navigation.getParam('bookId');
+    const currentBookIsFavorite = useSelector(state => 
+        state.books.favoriteBooks.some(book => book.id === bookId)
+    );
     const selectedBook = availableBooks.find(book => book.id === bookId);
 
     const dispatch = useDispatch();
@@ -31,6 +34,10 @@ const BookDetailScreen = props => {
     useEffect(() => {
         props.navigation.setParams({toggleFav: toggleFavoriteHandler});
     }, [toggleFavoriteHandler]);
+
+    useEffect(() => {
+        props.navigation.setParams({isFav: currentBookIsFavorite});
+    }, [currentBookIsFavorite]);
 
     return (
         <ScrollView>
@@ -62,6 +69,7 @@ const BookDetailScreen = props => {
 BookDetailScreen.navigationOptions = navigationData => {
     const bookTitle = navigationData.navigation.getParam('bookTitle');
     const toggleFavorite = navigationData.navigation.getParam('toggleFav');
+    const isFavorite = navigationData.navigation.getParam('isFav');
 
     return {
         headerTitle: bookTitle,
@@ -69,7 +77,7 @@ BookDetailScreen.navigationOptions = navigationData => {
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item 
                     title="Favorite"
-                    iconName="star"
+                    iconName={isFavorite ? 'ios-star' : 'ios-star-outline'}
                     onPress={toggleFavorite}
                 />
             </HeaderButtons>
