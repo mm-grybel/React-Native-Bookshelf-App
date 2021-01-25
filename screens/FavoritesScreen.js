@@ -13,7 +13,7 @@ const FavoritesScreen = props => {
     if (favoriteBooks.length === 0 || !favoriteBooks) {
         return (
             <View style={styles.content}>
-                <Text style={DefaultStyles.bodyText}>No favorite books found. Start adding some!</Text>
+                <Text c>No favorite books found. Start adding some!</Text>
             </View>
         );
     }

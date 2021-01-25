@@ -22,7 +22,7 @@ const booksReducer = (state = initialState, action) => {
                 return {...state, favoriteBooks: state.favoriteBooks.concat(book)};
             }
         case SET_FILTERS:
-            const appliedFilters = actions.filters;
+            const appliedFilters = action.filters;
             const updatedFilteredBooks = state.books.filter(book => {
                 if (appliedFilters.biography && !book.isBiography) {
                     return false;

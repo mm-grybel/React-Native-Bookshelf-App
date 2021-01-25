@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch } from 'react-redux';
 
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import FilterSwitch from '../components/FilterSwitch';
+import { setFilters } from '../store/actions/books';
 
 const FiltersScreen = props => {
     const { navigation } = props;
     const [isBiography, setIsBiography] = useState(false);
     const [isThriller, setIsThriller] = useState(false);
+
+    const dispatch = useDispatch();
 
     const saveFilters = useCallback(() => {
         const appliedFilters = {
@@ -16,8 +20,8 @@ const FiltersScreen = props => {
             thriller: isThriller
         };
 
-        console.log(appliedFilters);
-    }, [isBiography, isThriller]);
+        dispatch(setFilters(appliedFilters));
+    }, [isBiography, isThriller, dispatch]);
 
     useEffect(() => {
         navigation.setParams({ save: saveFilters });
