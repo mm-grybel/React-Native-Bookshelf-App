@@ -12,34 +12,34 @@ import booksReducer from './store/reducers/books';
 enableScreens();
 
 const rootReducer = combineReducers({
-  books: booksReducer
+    books: booksReducer
 });
 
 const store = createStore(rootReducer);
 
 const fetchFonts = () => {
-  return Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
-  });
+    return Font.loadAsync({
+        'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    });
 };
 
 export default function App() {
-  const [dataLoaded, setDataLoaded] = useState(false);
+    const [dataLoaded, setDataLoaded] = useState(false);
 
-  if (!dataLoaded) {
-    return (
-      <AppLoading 
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)} 
-        onError={(err) => console.log(err)} 
-      />
-    );
-  }
+    if (!dataLoaded) {
+        return (
+            <AppLoading 
+                startAsync={fetchFonts}
+                onFinish={() => setDataLoaded(true)} 
+                onError={(err) => console.log(err)} 
+            />
+        );
+    }
   
-  return (
-    <Provider store={store}>
-      <BooksNavigator />
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <BooksNavigator />
+        </Provider>
+    );
 }
